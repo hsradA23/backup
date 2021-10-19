@@ -14,7 +14,7 @@ files=(`cat "${target}/filedata"`)
 idx=0
 for i in "${files[@]}"; do
 	mkdir -p "${HOME}/$(dirname "${i}")"
-	rsync -r "${target}/${idx}" "${HOME}/${i}"
+	cp -r "${target}/${idx}" "${HOME}/${i}"
 	(( idx++ ))
 done
 
