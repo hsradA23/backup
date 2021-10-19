@@ -1,7 +1,7 @@
 #!/bin/bash
 if (( $# == 0 )); then
-	echo "The backup archive is missing."
-	exit
+		echo "The backup archive is missing."
+			exit
 fi
 
 target=$1
@@ -13,9 +13,15 @@ files=(`cat "${target}/filedata"`)
 
 idx=0
 for i in "${files[@]}"; do
-	mkdir -p "${HOME}/$(dirname "${i}")"
-	cp -r "${target}/${idx}" "${HOME}/${i}"
+	if [[ -d "${target}/${idx}" ]]; then 
+		mkdir -p "${HOME}/${i}"
+		cp -r "${target}/${idx}/"* "${HOME}/${i}"
+	else
+		mkdir -p "${HOME}/$(dirname "${i}")"
+		cp -r "${target}/${idx}" "${HOME}/${i}"
+	fi
+	
+	echo ${i}
 	(( idx++ ))
 done
-
 rm -r ${target}
